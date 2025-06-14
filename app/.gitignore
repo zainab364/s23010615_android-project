@@ -1,0 +1,14 @@
+# Build files
+/build
+/app/build
+
+# Local configuration (contains computer's paths)
+local.properties
+
+# Android Studio settings (personal preferences)
+.idea/
+*.iml
+
+# Keystore files
+*.jks
+*.keystore
