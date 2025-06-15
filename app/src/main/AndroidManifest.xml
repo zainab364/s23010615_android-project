@@ -20,19 +20,19 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".SensorActivity"
-            android:exported="false" />
+            android:name=".MapActivity"
+            android:exported="false"/>
         <activity
-            android:name=".mapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
+            android:name=".LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+        <activity
+            android:name=".SensorActivity"
+            android:exported="false"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

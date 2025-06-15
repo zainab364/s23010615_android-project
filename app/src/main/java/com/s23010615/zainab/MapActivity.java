@@ -21,8 +21,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
-public class  mapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     com.google.android.gms.maps.GoogleMap mMap;
     EditText addressInput;
@@ -41,38 +42,38 @@ public class  mapActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        assert mapFragment != null;
-        mapFragment.getMapAsync(this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         showLocationButton.setOnClickListener(v -> {
-            String address = addressInput.getText().toString();
-            if (address.isEmpty()) {
-                Toast.makeText(this, "Please enter an address", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Geocoder geocoder = new Geocoder(this);
-            try {
-                List<Address> list = geocoder.getFromLocationName(address, 1);
-                if (list != null && !list.isEmpty()) {
-                    Address location = list.get(0);
-                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                    mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(address));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                } else {
-                    Toast.makeText(this, "Location not found", Toast.LENGTH_SHORT).show();
+            String address = addressInput.getText().toString().trim();
+            if (!address.isEmpty()) {
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                try {
+                    List<Address> addressList = geocoder.getFromLocationName(address, 1);
+                    if (addressList != null && !addressList.isEmpty()) {
+                        Address location = addressList.get(0);
+                        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                        mMap.clear();
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(address));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                        Toast.makeText(this, "Location found: " + address, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "No location found for this address", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Geocoding service error", Toast.LENGTH_SHORT).show();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Geocoding failed", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Please enter an address", Toast.LENGTH_SHORT).show();
             }
         });
-
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mapActivity.this, SensorActivity.class));
+                startActivity(new Intent(MapActivity.this, SensorActivity.class));
 
             }
         });

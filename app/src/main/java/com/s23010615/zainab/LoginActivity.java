@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText usernameEditText, passwordEditText;
     Button loginButton;
@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
             boolean inserted = dbHelper.insertData(username, password);
             if (inserted) {
                 Toast.makeText(this, "User & Password saved to DB", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Login.this, mapActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MapActivity.class);
                 startActivity(intent);
 
             } else {

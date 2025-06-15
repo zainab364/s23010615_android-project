@@ -1,6 +1,5 @@
 package com.s23010615.zainab;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.hardware.Sensor;
@@ -8,12 +7,10 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.SeekBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 
 
 
@@ -30,7 +27,6 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     private final float TEMP_THRESHOLD = 15f;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +44,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SensorActivity.this, Login.class));
+                startActivity(new Intent(SensorActivity.this, LoginActivity.class));
 
             }
         });
